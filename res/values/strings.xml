@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SwipeTest</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="student_number">Student Number</string>
+	<string name="hw2">Homework 2</string>
+	<string name="start">Start</string>
+</resources>
