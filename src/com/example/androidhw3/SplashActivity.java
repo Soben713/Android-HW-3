@@ -2,17 +2,20 @@ package com.example.androidhw3;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
-import com.example.swipetest.R;
+import com.example.androidhw3.R;
 import com.viewpagerindicator.CirclePageIndicator;
 
-public class MainActivity extends FragmentActivity {
+public class SplashActivity extends FragmentActivity {
 	
 	public static String[] studentNumbers = {"90109903", "9010XXXX", "9010YYYY"};
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
@@ -22,7 +25,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.splash_activity);
 
 		ActionBar actionBar = getActionBar();
 		actionBar.hide();
@@ -46,6 +49,15 @@ public class MainActivity extends FragmentActivity {
         
         CirclePageIndicator titleIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
         titleIndicator.setViewPager(mViewPager);
+        
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final Intent mainIntent = new Intent(SplashActivity.this, MainPageActivity.class);
+                SplashActivity.this.startActivity(mainIntent);
+                SplashActivity.this.finish();
+            }
+        }, 3000);
 	}
 	
 	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
@@ -67,10 +79,10 @@ public class MainActivity extends FragmentActivity {
         public int getCount() {
             return studentNumbers.length;
         }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "Section " + (position + 1);
-        }
+    }
+	public void startButtonClickListener(View v){
+		  Intent intent = new Intent(this, MainPageActivity.class);
+		  startActivity(intent);
+		  finish();
     }
 }
