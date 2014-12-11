@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SwipeTest</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Android HW 3</string>
 	<string name="student_number">Student Number</string>
-	<string name="hw2">Homework 2</string>
+	<string name="hw3">Homework 3</string>
 	<string name="start">Start</string>
+	<string name="yesterday_button">&lt;</string>
+	<string name="tomorrow_button">&gt;</string>
 </resources>
