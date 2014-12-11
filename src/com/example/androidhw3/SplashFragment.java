@@ -1,4 +1,6 @@
-package com.example.swipetest;
+package com.example.androidhw3;
+
+import com.example.swipetest.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

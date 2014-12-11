@@ -1,4 +1,4 @@
-package com.example.swipetest;
+package com.example.androidhw3;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.example.swipetest.R;
 import com.viewpagerindicator.CirclePageIndicator;
 
 public class MainActivity extends FragmentActivity {
