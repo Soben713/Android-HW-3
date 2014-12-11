@@ -7,4 +7,7 @@
 	<string name="start">Start</string>
 	<string name="yesterday_button">&lt;</string>
 	<string name="tomorrow_button">&gt;</string>
+	<string name="std1">Soheil Behnezhad</string>
+	<string name="std2">Kasra Edalatnezhad</string>
+	<string name="std3">Navid Jalalmanesh</string>
 </resources>
