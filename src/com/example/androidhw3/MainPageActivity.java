@@ -1,16 +1,26 @@
 package com.example.androidhw3;
 
+import static com.orm.SugarRecord.save;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.androidhw3.db_entities.Cost;
+import com.orm.SugarRecord;
 
 public class MainPageActivity extends FragmentActivity {
 	CalSectionsPagerAdapter calSectionsPagerAdapter;
@@ -46,9 +56,6 @@ public class MainPageActivity extends FragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.mainpage_activity);
-
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections
 		// of the app.
@@ -69,7 +76,7 @@ public class MainPageActivity extends FragmentActivity {
 		// Should be changed to current date's integer
 		mViewPager.setCurrentItem(current_page);
 	}
-
+	
 	public static class CalSectionsPagerAdapter extends
 			FragmentStatePagerAdapter {
 

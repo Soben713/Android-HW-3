@@ -1,4 +1,5 @@
 <resources>
     <color name="bg_color">#99BBFF</color>
     <color name="fg_color">#33BBFF</color>
+    <color name="actionbar_color">#00AAFF</color>
 </resources>
