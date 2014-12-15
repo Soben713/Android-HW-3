@@ -1,12 +1,7 @@
 package com.example.androidhw3.db_entities;
 
-import static com.orm.SugarRecord.save;
-
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
 
-import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 
 @Table(name = "cost")
@@ -50,7 +45,7 @@ public class Cost {
 		this.cost = cost;
 	}
 
-	public int isIncome() {
+	public int getIncome() {
 		return income;
 	}
 

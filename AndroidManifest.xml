@@ -23,7 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="MainPageActivity" >
+        <activity android:name="com.example.androidhw3.MainPageActivity" >
+        </activity>
+        <activity android:name="com.example.androidhw3.CalendarActivity" >
         </activity>
 
         <meta-data

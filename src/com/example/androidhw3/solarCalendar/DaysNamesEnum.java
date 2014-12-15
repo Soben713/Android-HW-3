@@ -1,19 +1,19 @@
 package com.example.androidhw3.solarCalendar;
 
 public enum DaysNamesEnum {
-	Monday("دو شنبه", "Monday"),
+	Monday("دوشنبه", "Monday"),
 
-	Tuesday("سه شنبه", "Tuesday"),
+	Tuesday("سه‌شنبه", "Tuesday"),
 
-	Wednesday("چهار شنبه", "Wednesday"),
+	Wednesday("چهارشنبه", "Wednesday"),
 
-	Thursday("پنج شنبه", "Thursday"),
+	Thursday("پنج‌شنبه", "Thursday"),
 
 	Friday("جمعه", "Friday"),
 
 	Saturday("شنبه", "Saturday"),
 
-	Sunday("یک شنبه", "Sunday");
+	Sunday("یکشنبه", "Sunday");
 
 	private String faName;
 	private String enName;

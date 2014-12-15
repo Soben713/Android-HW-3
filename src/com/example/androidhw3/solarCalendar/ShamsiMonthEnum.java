@@ -1,7 +1,7 @@
 package com.example.androidhw3.solarCalendar;
 
 public enum ShamsiMonthEnum {
-	Farvardin("�?روردین"),
+	Farvardin("فروردین"),
 
 	Ordibehesht("اردیبهشت"),
 
@@ -23,7 +23,7 @@ public enum ShamsiMonthEnum {
 
 	Bahman("بهمن"),
 
-	Esfand("اس�?ند");
+	Esfand("اسفند");
 
 	private String faName;
 
