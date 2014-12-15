@@ -21,13 +21,13 @@ public class Cost {
 	 */
 	private Date date;
 	private int cost;
-	private boolean isIncome;
+	private int income;
 
-	public Cost(Date date, int cost, boolean isIncome) {
+	public Cost(Date date, int cost, int income) {
 		super();
 		this.date = date;
 		this.cost = cost;
-		this.isIncome = isIncome;
+		this.income = income;
 	}
 	
 	public Cost(){
@@ -50,17 +50,17 @@ public class Cost {
 		this.cost = cost;
 	}
 
-	public boolean isIncome() {
-		return isIncome;
+	public int isIncome() {
+		return income;
 	}
 
-	public void setIncome(boolean isIncome) {
-		this.isIncome = isIncome;
+	public void setIncome(int isIncome) {
+		this.income = isIncome;
 	}
 
 	@Override
 	public String toString() {
-		return "Cost [date=" + date + ", cost=" + cost + ", isIncome="
-				+ isIncome + "]";
+		return "Cost [date=" + date + ", cost=" + cost + ", income="
+				+ income + "]";
 	}
 }

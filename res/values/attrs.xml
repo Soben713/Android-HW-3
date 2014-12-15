@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <declare-styleable name="RingButton">
+       <attr name="ring_label" format="string" />
+       <attr name="outer_rad" format="float" />
+       <attr name="inner_rad" format="float" />
+       <attr name="start_angle" format="float" />
+       <attr name="sweep_angle" format="float" />
+   </declare-styleable>
+   <declare-styleable name="CircularPercentView">
+       <attr name="rad" format="integer" />
+       <attr name="outer_bound_width" format="integer" />
+       <attr name="outer_bound_color" format="color" />
+       <attr name="positive_fill_color" format="color" />
+       <attr name="negative_fill_color" format="color" />
+   </declare-styleable>
+   
+</resources>

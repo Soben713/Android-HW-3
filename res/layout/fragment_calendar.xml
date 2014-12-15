@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:kspace="http://schemas.android.com/apk/res/com.example.androidhw3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="sharif.ce40327.f93.kns.androidhw2.CalendarActivity$PlaceholderFragment" >
+
+    <TextView
+        android:id="@+id/calendar_fragment_date_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />    
+    
+     <com.example.androidhw3.CircularPercentView
+        android:id="@+id/calendar_circular_percent"
+        
+        kspace:outer_bound_width="7"
+        kspace:rad="@dimen/calendar_circular_percent_rad"
+        
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+     <com.example.androidhw3.RingButton 
+        android:id="@+id/calendar_cost_input_ring_button"
+        kspace:outer_rad="@dimen/calendar_ring_outer_rad"
+        kspace:inner_rad="@dimen/calendar_ring_inner_rad"
+        kspace:start_angle="181"
+        kspace:sweep_angle="179"
+        kspace:ring_label="هزینه"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+     <com.example.androidhw3.RingButton 
+        android:id="@+id/calendar_income_input_ring_button"
+        kspace:outer_rad="@dimen/calendar_ring_outer_rad"
+        kspace:inner_rad="@dimen/calendar_ring_inner_rad"
+        kspace:start_angle="1"
+        kspace:sweep_angle="179"
+        kspace:ring_label="درامد"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+     
+     
+    
+    
+</RelativeLayout>

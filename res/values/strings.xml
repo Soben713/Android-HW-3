@@ -10,4 +10,9 @@
 	<string name="std1">Soheil Behnezhad</string>
 	<string name="std2">Kasra Edalatnezhad</string>
 	<string name="std3">Navid Jalalmanesh</string>
+    <string name="cancel">حذف</string>
+    <string name="submit">ثبت</string>
+    <string name="cost_of_day">هزینه ی روز</string>
+    <string name="income_of_day">درامد روز</string>
+
 </resources>

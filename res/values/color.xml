@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ring_contex_color">#999</color>
+    <color name="ring_shadow_color">#ccc</color>
+    <color name="ring_text_color">#000</color>
+    <color name="bg_color">#99BBFF</color>
+    <color name="fg_color">#33BBFF</color>
+    <color name="actionbar_color">#00AAFF</color>
+    
+</resources>

@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <item format="float" name="calendar_ring_outer_rad" type="dimen">240</item>
+    <item format="float" name="calendar_ring_inner_rad" type="dimen">180</item>
+    <item format="integer" name="calendar_circular_percent_rad" type="dimen">170</item>
+</resources>

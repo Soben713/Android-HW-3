@@ -54,7 +54,7 @@ public class SplashActivity extends FragmentActivity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				final Intent mainIntent = new Intent(SplashActivity.this, MainPageActivity.class);
+				final Intent mainIntent = new Intent(SplashActivity.this, CalendarActivity.class);
 				if(!SplashActivity.this.killed){
 					SplashActivity.this.startActivity(mainIntent);
 					SplashActivity.this.finish();
@@ -84,7 +84,7 @@ public class SplashActivity extends FragmentActivity {
 		}
 	}
 	public void startButtonClickListener(View v){
-		Intent intent = new Intent(this, MainPageActivity.class);
+		Intent intent = new Intent(this, CalendarActivity.class);
 		startActivity(intent);
 		killed = true;
 		finish();
