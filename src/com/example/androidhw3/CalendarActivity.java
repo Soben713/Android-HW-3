@@ -75,7 +75,9 @@ public class CalendarActivity extends FragmentActivity {
 		mCalendarPagerAdapter.makeDirty();
 		mViewPager.setCurrentItem(mViewPager.getCurrentItem());
 	}
-
+	public CalendarTool getCurrentPageDate(){
+		return mCalendarPagerAdapter.getTodayCalendar(mViewPager.getCurrentItem());
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -260,8 +262,17 @@ public class CalendarActivity extends FragmentActivity {
 		
 		
 		private void loadDataFromDB() {
-			if (calendarTool == null)
-				calendarTool = new CalendarTool();
+			System.out.println("%%^ load " + calendarTool);
+			if (calendarTool == null){
+				checkCalendarTool();
+				System.err.println("%%^ check activity" + (getActivity() != null));
+				if(getActivity() != null)
+					calendarTool = ((CalendarActivity)getActivity()).getCurrentPageDate();
+				else{
+					costOfDay = incomeOfDay = 0;
+					return;
+				}
+			}
 			System.out.println("load data for " + calendarTool.getDate());
 			Log.d("db", "loading, hash is:" + calendarTool.getDate() + " " + calendarTool.getDate().hashCode());
 			// TODO load [calendarTool.getDate(), costOfDay, incomeOfDay] from
@@ -321,6 +332,7 @@ public class CalendarActivity extends FragmentActivity {
 
 		public void informAnimationDataPercent(int percent){
 			if (getView() != null) {
+				checkCalendarTool();
 				 System.err.println(" @@ MY getView : " + getView());
 				System.err.println(getView().findViewById(
 						R.id.calendar_circular_percent));
@@ -365,8 +377,8 @@ public class CalendarActivity extends FragmentActivity {
 		public CalendarFragment(CalendarTool calendarTool) {
 			super();
 			this.calendarTool = calendarTool;
-			if (this.calendarTool == null)
-				this.calendarTool = new CalendarTool();
+//			if (this.calendarTool == null)
+//				this.calendarTool = new CalendarTool();
 		}
 
 		public CalendarFragment() {
@@ -390,6 +402,17 @@ public class CalendarActivity extends FragmentActivity {
 			// " -" + costOfDay + " $" + calendarTool+ " ::" + this);
 			return rootView;
 		}
+		
+		public void checkCalendarTool(){
+			if(calendarTool == null) System.err.println("^^ NO ASSIGNED DATE");
+			if(calendarTool == null && getActivity() != null){
+//				((CalendarActivity)getActivity()).refreshFragment();
+//				((CalendarActivity)getActivity()).pageReselect();
+				calendarTool = ((CalendarActivity)getActivity()).getCurrentPageDate();
+				System.err.println("^^ASSIGN DATE: " + calendarTool);
+				loadDataFromDB();
+			}
+		}
 		@Override
 		public void onResume() {
 			super.onResume();
@@ -403,6 +426,8 @@ public class CalendarActivity extends FragmentActivity {
 					.setOnClickListener(new onInputValueButtonClicked(
 							getResources().getString(R.string.income_of_day),
 							false));
+			
+			checkCalendarTool();
 			informDataPercent();
 		}
 
@@ -500,6 +525,8 @@ public class CalendarActivity extends FragmentActivity {
 			@SuppressWarnings("deprecation")
 			private void lockOrientation() {
 				Activity activity = getActivity();
+				if(activity == null) return;
+				activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 				if(activity == null) 
 					return;
 			    Display display = activity.getWindowManager().getDefaultDisplay();
@@ -540,19 +567,26 @@ public class CalendarActivity extends FragmentActivity {
 			        else
 			            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 			    }
+			}	
+			private void unlockOrientation() {
+				if(getActivity() == null)
+					return;
+				getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+				getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+				
+				
 			}
+
 			
 			@Override
 			public void onClick(View v) {
 				System.err.println("button clicked");
 				if(getActivity() != null){
 					lockOrientation();
-					getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 				}
 				dialog.show(getActivity().getFragmentManager(), "dialogInput");
 				if(getActivity() != null){
-					getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-					getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+					unlockOrientation();
 				}
 
 			}

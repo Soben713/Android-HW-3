@@ -25,7 +25,9 @@
         </activity>
         <activity android:name="com.example.androidhw3.MainPageActivity" >
         </activity>
-        <activity android:name="com.example.androidhw3.CalendarActivity" >
+        <activity android:name="com.example.androidhw3.CalendarActivity" 
+            android:screenOrientation="portrait"
+            >
         </activity>
 
         <meta-data
