@@ -14,11 +14,11 @@ public class Cost {
 	 * save(cost);	
 	 * List<Cost> costs = SugarRecord.listAll(Cost.class);
 	 */
-	private Date date;
+	private int date;
 	private int cost;
 	private int income;
 
-	public Cost(Date date, int cost, int income) {
+	public Cost(int date, int cost, int income) {
 		super();
 		this.date = date;
 		this.cost = cost;
@@ -29,11 +29,11 @@ public class Cost {
 		
 	}
 
-	public Date getDate() {
+	public int getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(int date) {
 		this.date = date;
 	}
 

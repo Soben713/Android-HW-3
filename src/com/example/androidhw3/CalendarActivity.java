@@ -245,14 +245,16 @@ public class CalendarActivity extends FragmentActivity {
 			if (calendarTool == null)
 				calendarTool = new CalendarTool();
 			System.out.println("load data for " + calendarTool.getDate());
+			Log.d("db", "loading, hash is:" + calendarTool.getDate() + " " + calendarTool.getDate().hashCode());
 			// TODO load [calendarTool.getDate(), costOfDay, incomeOfDay] from
 			// DB
-			Date date = calendarTool.getDate();
+			int date = calendarTool.getDate().hashCode();
 			Condition[] conditions = new Condition[] { new Condition("date")
 					.eq(date) };
 			List<Cost> costs = Select.from(Cost.class).where(conditions).list();
+			
 			Log.d("db", "size of costs:" + Integer.toString(costs.size()));
-			Log.d("db", "date is" + date.toString());
+			Log.d("db", "date is" + Integer.toString(date) + " " + calendarTool);
 			
 			if (costs.size() > 0) {
 				costOfDay = costs.get(0).getCost();
@@ -274,8 +276,10 @@ public class CalendarActivity extends FragmentActivity {
 				calendarTool = new CalendarTool();
 			System.out.println("save data for " + calendarTool.getDate());
 
-			Cost cost = new Cost(calendarTool.getDate(), costOfDay, incomeOfDay);
+			Cost cost = new Cost(calendarTool.getDate().hashCode(), costOfDay, incomeOfDay);
 			save(cost);
+			Log.d("db", "saving:" + costOfDay + " " + incomeOfDay + " " + calendarTool);
+			Log.d("db", "saving, hash is:" + calendarTool.getDate() + " " + calendarTool.getDate().hashCode());
 		}
 
 		public void setCostOfDay(int costOfDay) {
