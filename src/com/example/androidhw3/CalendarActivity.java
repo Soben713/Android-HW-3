@@ -1,16 +1,18 @@
 package com.example.androidhw3;
 
 import static com.orm.SugarRecord.save;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,17 +22,18 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.androidhw3.db_entities.Cost;
 import com.example.androidhw3.solarCalendar.CalendarTool;
 import com.orm.SugarRecord;
@@ -73,6 +76,7 @@ public class CalendarActivity extends FragmentActivity {
 		mViewPager.setCurrentItem(mViewPager.getCurrentItem());
 	}
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,7 +90,8 @@ public class CalendarActivity extends FragmentActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mCalendarPagerAdapter);
-
+		mViewPager.setOffscreenPageLimit(0);
+		
 		mViewPager
 				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 					@Override
@@ -314,6 +319,23 @@ public class CalendarActivity extends FragmentActivity {
 			calendarActivity = (CalendarActivity) activity;
 		}
 
+		public void informAnimationDataPercent(int percent){
+			if (getView() != null) {
+				 System.err.println(" @@ MY getView : " + getView());
+				System.err.println(getView().findViewById(
+						R.id.calendar_circular_percent));
+				CircularPercentView cpv = (CircularPercentView) getView()
+						.findViewById(R.id.calendar_circular_percent);
+				cpv.animatePercentTo(percent);
+				if (calendarActivity != null)
+					calendarActivity.refreshFragment();
+
+			}
+			else
+				System.err.println(" @@ MY ACTIVITY WAS NULL");
+			
+		}
+		
 		public void informDataPercent() {
 			// System.err.println(" $$ #ST INFORM DATA PERCENT : " + incomeOfDay
 			// + " -" + costOfDay + " @" + calendarTool+ " ::" + this );
@@ -336,20 +358,8 @@ public class CalendarActivity extends FragmentActivity {
 			// System.err.println(" $$ #ST INFORM DATA PERCENT : " + incomeOfDay
 			// + " -" + costOfDay + " $" +calendarTool+ " ::" + this +
 			// "   percent: " + percent);
-
-			if (getView() != null) {
-				// System.err.println(" @@ MY getView : " + getView());
-				System.err.println(getView().findViewById(
-						R.id.calendar_circular_percent));
-				CircularPercentView cpv = (CircularPercentView) getView()
-						.findViewById(R.id.calendar_circular_percent);
-				cpv.animatePercentTo(percent);
-				if (calendarActivity != null)
-					calendarActivity.refreshFragment();
-
-			}
-			// else
-			// System.err.println(" @@ MY ACTIVITY WAS NULL");
+			informAnimationDataPercent(percent);
+			
 		}
 
 		public CalendarFragment(CalendarTool calendarTool) {
@@ -380,7 +390,6 @@ public class CalendarActivity extends FragmentActivity {
 			// " -" + costOfDay + " $" + calendarTool+ " ::" + this);
 			return rootView;
 		}
-
 		@Override
 		public void onResume() {
 			super.onResume();
@@ -394,6 +403,7 @@ public class CalendarActivity extends FragmentActivity {
 					.setOnClickListener(new onInputValueButtonClicked(
 							getResources().getString(R.string.income_of_day),
 							false));
+			informDataPercent();
 		}
 
 		class onInputValueButtonClicked implements OnClickListener {
@@ -486,10 +496,64 @@ public class CalendarActivity extends FragmentActivity {
 				}
 			}
 
+			@SuppressLint("NewApi")
+			@SuppressWarnings("deprecation")
+			private void lockOrientation() {
+				Activity activity = getActivity();
+				if(activity == null) 
+					return;
+			    Display display = activity.getWindowManager().getDefaultDisplay();
+			    int rotation = display.getRotation();
+			    int height;
+			    int width;
+			    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
+			        height = display.getHeight();
+			        width = display.getWidth();
+			    } else {
+			        Point size = new Point();
+			        display.getSize(size);
+			        height = size.y;
+			        width = size.x;
+			    }
+			    switch (rotation) {
+			    case Surface.ROTATION_90:
+			        if (width > height)
+			            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			        else
+			            activity.setRequestedOrientation(9/* reversePortait */);
+			        break;
+			    case Surface.ROTATION_180:
+			        if (height > width)
+			            activity.setRequestedOrientation(9/* reversePortait */);
+			        else
+			            activity.setRequestedOrientation(8/* reverseLandscape */);
+			        break;          
+			    case Surface.ROTATION_270:
+			        if (width > height)
+			            activity.setRequestedOrientation(8/* reverseLandscape */);
+			        else
+			            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			        break;
+			    default :
+			        if (height > width)
+			            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+			        else
+			            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+			    }
+			}
+			
 			@Override
 			public void onClick(View v) {
 				System.err.println("button clicked");
+				if(getActivity() != null){
+					lockOrientation();
+					getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+				}
 				dialog.show(getActivity().getFragmentManager(), "dialogInput");
+				if(getActivity() != null){
+					getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+					getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+				}
 
 			}
 

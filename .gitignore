@@ -26,3 +26,5 @@ proguard/
 *.log
 .classpath
 .classpath
+project.properties
+.classpath
