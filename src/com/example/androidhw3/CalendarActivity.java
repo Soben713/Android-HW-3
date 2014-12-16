@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.example.androidhw3.db_entities.Cost;
 import com.example.androidhw3.solarCalendar.CalendarTool;
+import com.orm.SugarRecord;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
@@ -241,6 +242,18 @@ public class CalendarActivity extends FragmentActivity {
 
 		}
 
+		private Cost getCostFromDB(int dateHash) {
+			Condition[] conditions = new Condition[] { new Condition("date")
+					.eq(dateHash) };
+			List<Cost> costs = Select.from(Cost.class).where(conditions).list();
+			
+			if (costs.size() > 0)
+				return costs.get(0);
+			else
+				return null;
+		}
+		
+		
 		private void loadDataFromDB() {
 			if (calendarTool == null)
 				calendarTool = new CalendarTool();
@@ -248,17 +261,10 @@ public class CalendarActivity extends FragmentActivity {
 			Log.d("db", "loading, hash is:" + calendarTool.getDate() + " " + calendarTool.getDate().hashCode());
 			// TODO load [calendarTool.getDate(), costOfDay, incomeOfDay] from
 			// DB
-			int date = calendarTool.getDate().hashCode();
-			Condition[] conditions = new Condition[] { new Condition("date")
-					.eq(date) };
-			List<Cost> costs = Select.from(Cost.class).where(conditions).list();
-			
-			Log.d("db", "size of costs:" + Integer.toString(costs.size()));
-			Log.d("db", "date is" + Integer.toString(date) + " " + calendarTool);
-			
-			if (costs.size() > 0) {
-				costOfDay = costs.get(0).getCost();
-				incomeOfDay = costs.get(0).getIncome();
+			Cost cost = getCostFromDB(calendarTool.getDate().hashCode());
+			if (cost != null) {
+				costOfDay = cost.getCost();
+				incomeOfDay = cost.getIncome();
 			}
 
 			// Cost cost = null;
@@ -275,11 +281,19 @@ public class CalendarActivity extends FragmentActivity {
 			if (calendarTool == null)
 				calendarTool = new CalendarTool();
 			System.out.println("save data for " + calendarTool.getDate());
-
-			Cost cost = new Cost(calendarTool.getDate().hashCode(), costOfDay, incomeOfDay);
-			save(cost);
-			Log.d("db", "saving:" + costOfDay + " " + incomeOfDay + " " + calendarTool);
-			Log.d("db", "saving, hash is:" + calendarTool.getDate() + " " + calendarTool.getDate().hashCode());
+			
+			Cost cost = getCostFromDB(calendarTool.getDate().hashCode());
+			
+			if(cost != null) {
+				Log.d("db", "cost of " + calendarTool + " was found in db. Updating...");
+				cost.setCost(costOfDay);
+				cost.setIncome(incomeOfDay);
+				save(cost);
+			} else {
+				Log.d("db", "new cost found for " + calendarTool + " creating a new one");
+				cost = new Cost(calendarTool.getDate().hashCode(), costOfDay, incomeOfDay);
+				save(cost);
+			}
 		}
 
 		public void setCostOfDay(int costOfDay) {

@@ -1,7 +1,6 @@
 package com.example.androidhw3.db_entities;
 
-import java.util.Date;
-
+import com.orm.dsl.Column;
 import com.orm.dsl.Table;
 
 @Table(name = "cost")
@@ -14,7 +13,9 @@ public class Cost {
 	 * save(cost);	
 	 * List<Cost> costs = SugarRecord.listAll(Cost.class);
 	 */
+    @Column(name = "date", unique = true, notNull = true)
 	private int date;
+    
 	private int cost;
 	private int income;
 
